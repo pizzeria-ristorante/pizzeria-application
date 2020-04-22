@@ -1,2 +1,90 @@
-<h2>Pizzeria Ristorante - Welcome!</h2>
-<a href="/api/orders?name=salami">Click me</a>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Pizzeria Ristorante - Home</title>
+    <script src="js/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet"/>
+    <link href="css/templatemo-style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top box -->
+    <!-- Logo & Site Name -->
+    <div class="placeholder">
+        <div class="parallax-window" data-parallax="scroll" data-image-src="img/simple-house-01.jpg">
+            <div class="tm-header">
+                <div class="row tm-header-inner">
+                    <div class="col-md-6 col-12">
+                        <img src="img/simple-house-logo.png" alt="Logo" class="tm-site-logo"/>
+                        <div class="tm-site-text-box">
+                            <h1 class="tm-site-title">Pizeria Ristorante</h1>
+                            <h6 class="tm-site-description">Servicio extraordinario</h6>
+                        </div>
+                    </div>
+                    <nav class="col-md-6 col-12 tm-nav">
+                        <ul class="tm-nav-ul">
+                            <li class="tm-nav-li"><a href="index.html" class="tm-nav-link active">Home</a></li>
+                            <li class="tm-nav-li"><a href="menu.html" class="tm-nav-link">Menu</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <header class="row tm-welcome-section">
+            <h2 class="col-12 text-center tm-section-title">Welcome to Pizzeria Ristorante!</h2>
+        </header>
+
+        <div class="form__group field">
+            <form action="/api/orders" method="post" id="my_form">
+                <input id="order" type="input" name="order" class="form__field" placeholder="Pizzas, space separated" required/>
+                <label for="order" class="form__label">Pizzas, space separated</label>
+                <input class="sbn-btn" type="submit" name="submit" value="Order!"/>
+            </form>
+            <script>
+                $("#my_form").submit(function (event) {
+                    event.preventDefault();
+                    var post_url = $(this).attr("action");
+                    var pizzas = $("#order").val().split(" ");
+                    var form_data = {"pizzaOrders": pizzas};
+                    $.ajax({
+                        url: post_url,
+                        type: "POST",
+                        data: JSON.stringify(form_data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    }).done(function() {
+                        console.log("Ordered!")
+                    }).fail(function(res) {
+                        console.error(res);
+                    })
+                });
+            </script>
+        </div>
+
+    </main>
+</div>
+<script src="js/parallax.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle click on paging links
+        $('.tm-paging-link').click(function (e) {
+            e.preventDefault();
+
+            var page = $(this).text().toLowerCase();
+            $('.tm-gallery-page').addClass('hidden');
+            $('#tm-gallery-page-' + page).removeClass('hidden');
+            $('.tm-paging-link').removeClass('active');
+            $(this).addClass("active");
+        });
+    });
+</script>
+</body>
+</html>
