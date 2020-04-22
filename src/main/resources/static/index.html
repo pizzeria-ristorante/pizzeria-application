@@ -59,12 +59,15 @@
                         type: "POST",
                         data: JSON.stringify(form_data),
                         contentType: "application/json; charset=utf-8",
-                        dataType: "json"
-                    }).done(function() {
-                        console.log("Ordered!")
-                    }).fail(function(res) {
-                        console.error(res);
-                    })
+                        dataType: "json",
+                        success: function () {
+                            console.log("Successful ordered!");
+                        },
+                        error: function (xhr, error) {
+                            console.log(xhr);
+                            console.error(error);
+                        }
+                    });
                 });
             </script>
         </div>
