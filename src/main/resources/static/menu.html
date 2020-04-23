@@ -43,7 +43,7 @@
 				<h2 class="col-12 text-center tm-section-title">Our specialities</h2>
 				<div class="mypanel"></div>
 				<script>
-					$.getJSON('/api/menu', function(data) {
+					$.getJSON('api/menu', function(data) {
 						var struct = `<ul>`
 						$.each(data, function(index, pizza) {
 							var flatted = $.map(pizza.ingredients, function(ingredient) {
